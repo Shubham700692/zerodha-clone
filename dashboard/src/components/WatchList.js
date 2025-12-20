@@ -14,9 +14,10 @@ import {
 } from "@mui/icons-material";
 
 import { watchlist } from "../data/data";
-import { DoughnutChart } from "./DoughnoutChart";
+import { DoughnoutChart } from "./DoughnoutChart";
 
-const labels = watchlist.map((subArray) => subArray["name"]);
+// const labels = watchlist.map((subArray) => subArray["name"]);
+const labels = watchlist.map(((stock) => stock.name));
 
 const WatchList = () => {
   const data = {
@@ -92,7 +93,7 @@ const WatchList = () => {
         })}
       </ul>
 
-      <DoughnutChart data={data} />
+      <DoughnoutChart data={data} />
     </div>
   );
 };

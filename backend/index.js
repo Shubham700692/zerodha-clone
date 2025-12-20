@@ -210,8 +210,20 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order saved!");
 })
 
-app.listen(PORT, () => {
-  console.log("App started!");
-  mongoose.connect(uri);
-  console.log("DB started!");
-});
+// app.listen(PORT, () => {
+//   console.log("App started!");
+//   mongoose.connect(uri);
+//   console.log("DB started!");
+// });
+mongoose
+  .connect(MONGO_URL)
+  .then(() => {
+    console.log("MongoDB connected");
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection failed:", err);
+  });
