@@ -15,7 +15,10 @@ const uri = process.env.MONGO_URL;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: "*", // allow frontend & dashboard
+    methods: ["GET", "POST"],
+  }));
 app.use(bodyParser.json());
 
 app.get("/addHoldings", async (req, res) => {
@@ -210,8 +213,20 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order saved!");
 })
 
-app.listen(PORT, () => {
-  console.log("App started!");
-  mongoose.connect(uri);
-  console.log("DB started!");
-});
+// app.listen(PORT, () => {
+//   console.log("App started!");
+//   mongoose.connect(uri);
+//   console.log("DB started!");
+// });
+mongoose
+  .connect(MONGO_URL)
+  .then(() => {
+    console.log("MongoDB connected");
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection failed:", err);
+  });
