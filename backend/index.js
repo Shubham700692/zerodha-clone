@@ -216,7 +216,7 @@ app.post("/newOrder", async (req, res) => {
 //   console.log("DB started!");
 // });
 mongoose
-  .connect(MONGO_URL)
+  .connect(uri)
   .then(() => {
     console.log("MongoDB connected");
 
